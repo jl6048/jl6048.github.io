@@ -1,0 +1,75 @@
+---
+title: "JINGHAN LIU's Website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+---
+
+```{r}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+library(flexdashboard)
+```
+
+
+## Load and tidy data
+```{r}
+
+data("ny_noaa")
+ny_noaa= 
+  ny_noaa %>% 
+  separate('date', c( 'year','month','day')) %>% 
+  drop_na() %>% 
+  mutate(
+    prcp = as.numeric(prcp),
+    snow = as.numeric(snow),
+    snwd = as.numeric(snwd), 
+    tmax = as.numeric(tmax), 
+    tmin = as.numeric(tmin), 
+    tmax = tmax/10,
+    prcp =  prcp/10,
+    tmin = tmin/10) %>% 
+  filter(!prcp == 0, !snow == 0, !snwd == 0) 
+ny_noaa
+```
+
+## SCATTERPLOT
+```{r}
+scatter_plot = 
+  ny_noaa %>% 
+  mutate(text_label = str_c("Year: ", year)) %>% 
+  plot_ly(x = ~tmin, y = ~tmax, color = ~year, text = ~text_label, alpha = .5, 
+          type = "scatter",colors = "viridis", mode = "markers")
+ scatter_plot
+```
+
+## Box-plot
+
+```{r}
+box_plot =
+  ny_noaa %>%
+  plot_ly(y = ~prcp, x = ~year, color = ~year,
+          type = "box", colors = "viridis") %>%
+layout(
+    xaxis = list(title = "Year"),
+    yaxis = list(title = "Precipitation"))
+ box_plot
+```
+ 
+## Bar Plot
+
+```{r}
+bar_plot =
+ny_noaa %>% 
+  group_by(year, month, tmax) %>% 
+  summarize(
+    mean_tmax = mean(tmax, na.rm = TRUE)) %>% 
+  plot_ly(
+    x = ~month, y = ~mean_tmax, color = ~year,
+    type = "bar", colors = "viridis", alpha = 0.5)
+bar_plot
+```
+
