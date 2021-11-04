@@ -1,0 +1,31 @@
+---
+title: "JINGHAN LIU's Website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+---
+
+## Welcome!!
+
+Welcome to JINGHAN's awesome website.
+
+<img src="images/alice-in-wonder-land-welcome.gif" style="width:75%">
+
+## About Me
+
+Hi, my name is Jinghan Liu, you can also call me Shirley. I come from Beijing, China, and graduated from the University of California, Irvine, with a bachelor's degree in biomedical engineering. Currently, I am studying for a master's degree in biostatistics at Columbia University.
+
+<img src="images/about me.jpg" style="width:75%">
+
+
+* [About](About.html)
+You can find more about my academic and professional experience on this page
+
+
+## Contact Information
+
+* Jinghan Liu(Shirley)
+* 929-465-9028
+

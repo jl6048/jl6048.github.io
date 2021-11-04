@@ -1,0 +1,76 @@
+---
+title: "Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source: embed
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+library(flexdashboard)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+data("ny_noaa")
+ny_noaa= 
+  ny_noaa %>% 
+  separate('date', c( 'year','month','day')) %>% 
+  drop_na() %>% 
+  mutate(
+    prcp = as.numeric(prcp),
+    snow = as.numeric(snow),
+    snwd = as.numeric(snwd), 
+    tmax = as.numeric(tmax), 
+    tmin = as.numeric(tmin), 
+    tmax = tmax/10,
+    prcp =  prcp/10,
+    tmin = tmin/10) %>% 
+  filter(!prcp == 0, !snow == 0, !snwd == 0) 
+
+scatter_plot = 
+  ny_noaa %>% 
+  mutate(text_label = str_c("Year: ", year)) %>% 
+  plot_ly(x = ~tmin, y = ~tmax, color = ~year, text = ~text_label, alpha = .5, 
+          type = "scatter",colors = "viridis", mode = "markers")
+ scatter_plot
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+box_plot =
+  ny_noaa %>%
+  plot_ly(y = ~prcp, x = ~year, color = ~year,
+          type = "box", colors = "viridis") %>%
+layout(
+    xaxis = list(title = "Year"),
+    yaxis = list(title = "Precipitation"))
+ box_plot
+```
+
+### Chart C
+
+```{r}
+bar_plot =
+ny_noaa %>% 
+  group_by(year, month, tmax) %>% 
+  summarize(
+    mean_tmax = mean(tmax, na.rm = TRUE)) %>% 
+  plot_ly(
+    x = ~month, y = ~mean_tmax, color = ~year,
+    type = "bar", colors = "viridis", alpha = 0.5)
+bar_plot
+```
+

@@ -1,0 +1,18 @@
+---
+title: "Jinghan Liu(Shirley)"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+## academic and professional experience
+
+Please see below link to see my resume!
+
+
+[Resume](Jinghan_Liu_resume.pdf)
+
+
+Thank you for your time!!
+
