@@ -34,7 +34,7 @@ ny_noaa=
     tmax = tmax/10,
     prcp =  prcp/10,
     tmin = tmin/10) %>% 
-  filter(!prcp == 0, !snow == 0, !snwd == 0) 
+ sample_n(1000)
 
 scatter_plot = 
   ny_noaa %>% 
