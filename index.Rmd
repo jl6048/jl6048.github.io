@@ -20,7 +20,7 @@ Hi, my name is Jinghan Liu, you can also call me Shirley. I come from Beijing, C
 <img src="images/about me.jpg" style="width:75%">
 
 
-* [About](About.html)
+* [About](about.html)
 You can find more about my academic and professional experience on this page
 
 
